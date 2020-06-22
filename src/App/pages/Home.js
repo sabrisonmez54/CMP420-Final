@@ -72,63 +72,6 @@ const Home = () => {
         window.location.reload();
 
 
-        // axios.get(url, {
-        //     // emplid: user.emplid,
-
-        //     params: {
-        //         first_name: user.first_name,
-        //         last_name: user.last_name,
-        //         email: user.email,
-        //         phone_number: user.phone_number,
-        //         address: user.address,
-        //         hourly_rate: user.hourly_rate,
-        //         total_weekly: user.total_weekly,
-        //         title: user.title,
-        //     }
-        // }).then(result => {
-        //     setUsers(result.data);
-        // })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
-        //window.location.reload();
-        // window.location.reload();
-        // const params = new URLSearchParams()
-        // params.append('first_name', user.first_name);
-
-
-
-        // params.append('last_name', user.last_name)
-        // params.append('email', user.email)
-        // params.append('phone_number', user.phone_number)
-        // params.append('address', user.address)
-        // params.append('hourly_rate', user.hourly_rate)
-        // params.append('total_weekly', user.total_weekly)
-        // params.append('title', user.title)
-
-        // axios({
-        //     method: 'post',     //put
-        //     url: url,
-
-        //     data: {
-        //         params
-        //         //emplid: user.emplid,
-        //         // first_name: user.first_name,
-        //         // last_name: user.last_name,
-        //         // email: user.email,
-        //         // phone_number: user.phone_number,
-        //         // address: user.address,
-        //         // hourly_rate: user.hourly_rate,
-        //         // total_weekly: user.total_weekly,
-        //         // title: user.title,
-        //     }
-
-        // }).then(result => {
-        //     setUsers(result.data);
-        // })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
     }
 
     const deleteUser = emplid => {
@@ -150,8 +93,36 @@ const Home = () => {
 
     const updateUser = (emplid, updatedUser) => {
         setEditing(false)
+        const url = `/api/updateEmployee/`;
+        console.log(updatedUser)
 
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user: {
+                    emplid: emplid,
+                    first_name: updatedUser.first_name,
+                    last_name: updatedUser.last_name,
+                    email: updatedUser.email,
+                    phone_number: updatedUser.phone_number,
+                    address: updatedUser.address,
+                    hourly_rate: updatedUser.hourly_rate,
+                    total_weekly: updatedUser.total_weekly,
+                    title: updatedUser.title,
+                }
 
+            })
+        };
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                setUsers(result.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        window.location.reload();
 
     }
 

@@ -11,7 +11,17 @@ const Home = () => {
 
     ]
 
-    const initialFormState = { id: null, name: '', username: '' }
+    const initialFormState = {
+        emplid: null,
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        hourly_rate: '',
+        total_weekly: '',
+        title: ''
+    }
 
     // Setting state
     const [users, setUsers] = useState(usersData)
@@ -31,8 +41,94 @@ const Home = () => {
     }, []);
     // CRUD operations
     const addUser = user => {
-        user.id = users.length + 1
-        setUsers([...users, user])
+        const url = `/api/addEmployee/`;
+        console.log(user)
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                user: {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    email: user.email,
+                    phone_number: user.phone_number,
+                    address: user.address,
+                    hourly_rate: user.hourly_rate,
+                    total_weekly: user.total_weekly,
+                    title: user.title,
+                }
+
+            })
+        };
+        fetch(url, requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                setUsers(result.data);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        window.location.reload();
+
+
+        // axios.get(url, {
+        //     // emplid: user.emplid,
+
+        //     params: {
+        //         first_name: user.first_name,
+        //         last_name: user.last_name,
+        //         email: user.email,
+        //         phone_number: user.phone_number,
+        //         address: user.address,
+        //         hourly_rate: user.hourly_rate,
+        //         total_weekly: user.total_weekly,
+        //         title: user.title,
+        //     }
+        // }).then(result => {
+        //     setUsers(result.data);
+        // })
+        //     .catch(err => {
+        //         console.log(err);
+        //     });
+        //window.location.reload();
+        // window.location.reload();
+        // const params = new URLSearchParams()
+        // params.append('first_name', user.first_name);
+
+
+
+        // params.append('last_name', user.last_name)
+        // params.append('email', user.email)
+        // params.append('phone_number', user.phone_number)
+        // params.append('address', user.address)
+        // params.append('hourly_rate', user.hourly_rate)
+        // params.append('total_weekly', user.total_weekly)
+        // params.append('title', user.title)
+
+        // axios({
+        //     method: 'post',     //put
+        //     url: url,
+
+        //     data: {
+        //         params
+        //         //emplid: user.emplid,
+        //         // first_name: user.first_name,
+        //         // last_name: user.last_name,
+        //         // email: user.email,
+        //         // phone_number: user.phone_number,
+        //         // address: user.address,
+        //         // hourly_rate: user.hourly_rate,
+        //         // total_weekly: user.total_weekly,
+        //         // title: user.title,
+        //     }
+
+        // }).then(result => {
+        //     setUsers(result.data);
+        // })
+        //     .catch(err => {
+        //         console.log(err);
+        //     });
     }
 
     const deleteUser = emplid => {
@@ -55,13 +151,23 @@ const Home = () => {
     const updateUser = (emplid, updatedUser) => {
         setEditing(false)
 
-        setUsers(users.map(user => (user.emplid === emplid ? updatedUser : user)))
+
+
     }
 
     const editRow = user => {
         setEditing(true)
 
-        setCurrentUser({ emplid: user.emplid, first_name: user.first_name, email: user.email })
+        setCurrentUser({
+            emplid: user.emplid, first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            phone_number: user.phone_number,
+            address: user.address,
+            hourly_rate: user.hourly_rate,
+            total_weekly: user.total_weekly,
+            title: user.title,
+        })
     }
 
     return (

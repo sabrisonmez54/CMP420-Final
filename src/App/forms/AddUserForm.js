@@ -1,7 +1,17 @@
 import React, { useState } from 'react'
 
 const AddUserForm = props => {
-    const initialFormState = { id: null, name: '', username: '' }
+    const initialFormState = {
+        emplid: null,
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        hourly_rate: '',
+        total_weekly: '',
+        title: ''
+    }
     const [user, setUser] = useState(initialFormState)
 
     const handleInputChange = event => {
@@ -14,28 +24,30 @@ const AddUserForm = props => {
         <form
             onSubmit={event => {
                 event.preventDefault()
-                if (!user.name || !user.username) return
 
+                console.log(user)
                 props.addUser(user)
                 setUser(initialFormState)
+
             }}
+
         >
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Name</label>
-            <input type="text" name="name" value={user.name} onChange={handleInputChange} />
-            <label>Username</label>
-            <input type="text" name="username" value={user.username} onChange={handleInputChange} />
+            <label>first name</label>
+            <input type="text" name="first_name" value={user.first_name} onChange={handleInputChange} />
+            <label>last name</label>
+            <input type="text" name="last_name" value={user.last_name} onChange={handleInputChange} />
+            <label>email</label>
+            <input name="email" value={user.email} onChange={handleInputChange} />
+            <label>phone</label>
+            <input type="text" name="phone_number" value={user.phone_number} onChange={handleInputChange} />
+            <label>address</label>
+            <input type="text" name="address" value={user.address} onChange={handleInputChange} />
+            <label>hourly</label>
+            <input type="text" name="hourly_rate" value={user.hourly_rate} onChange={handleInputChange} />
+            <label>weekly</label>
+            <input type="text" name="total_weekly" value={user.total_weekly} onChange={handleInputChange} />
+            <label>title</label>
+            <input type="text" name="title" value={user.title} onChange={handleInputChange} />
             <button>Add new user</button>
         </form>
     )

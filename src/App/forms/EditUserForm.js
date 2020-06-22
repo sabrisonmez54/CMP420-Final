@@ -13,8 +13,9 @@ const EditUserForm = props => {
 
     const handleInputChange = event => {
 
+        const { name, value } = event.target
 
-        setUser({ ...user, [event.target.name]: event.target.value })
+        setUser({ ...user, [name]: value })
     }
 
     return (
@@ -25,12 +26,21 @@ const EditUserForm = props => {
                 props.updateUser(user.emplid, user)
             }}
         >
-            <label>First Name</label>
-            <input type="text" name="name" value={user.first_name} onChange={handleInputChange} />
-
-
-            <label>Email</label>
-            <input type="text" name="username" value={user.email} onChange={handleInputChange} />
+            <label>first name</label>
+            <input type="text" name="first_name" value={user.first_name} onChange={handleInputChange} />
+            <label>last name</label>
+            <input type="text" name="last_name" value={user.last_name} onChange={handleInputChange} />
+            <label>email</label>
+            <input name="email" value={user.email} onChange={handleInputChange} />
+            <label>phone</label>
+            <input type="text" name="phone_number" value={user.phone_number} onChange={handleInputChange} />
+            <label>address</label>
+            <input type="text" name="address" value={user.address} onChange={handleInputChange} />
+            <label>hourly</label>
+            <input type="text" name="hourly_rate" value={user.hourly_rate} onChange={handleInputChange} />
+            <label>weekly</label>
+            <input type="text" name="total_weekly" value={user.total_weekly} onChange={handleInputChange} />
+            <label>title</label>
             <button>Update user</button>
             <button onClick={() => props.setEditing(false)} className="button muted-button">
                 Cancel
